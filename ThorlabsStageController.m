@@ -6,7 +6,6 @@ classdef ThorlabsStageController < handle
         InitStatus = false;
         ErrMsg = '';
         StageX
-        YStageLimits 
         XStageLimits 
     end
     
@@ -31,7 +30,7 @@ classdef ThorlabsStageController < handle
             end
         end
         
-        function RetMsg = InitStages(Obj,fig)
+        function RetMsg = InitStage(Obj, fig)
             RetMsg.color='green';
             if ~Obj.IsEmulated
                 try
@@ -123,7 +122,6 @@ classdef ThorlabsStageController < handle
             if ~Obj.IsEmulated
                 
                 Stage = Obj.StageX;
-                ax = 'X';
                 
                 try
                    Stage.MoveToAbsolute(Position);
@@ -145,7 +143,7 @@ classdef ThorlabsStageController < handle
             end
         end
             
-        function RetMsg = MoveJog(Obj,ax,StpSize)
+        function RetMsg = MoveJog(Obj,StpSize)
             % moves the selected axis by the requested amount
             % (final position = current position + MoveSize)
             % StpSize - Numeric input
@@ -155,7 +153,7 @@ classdef ThorlabsStageController < handle
                 try
                     [Pos,ErrMsg] = Obj.GetPosition();
                     NewPos = Pos + StpSize;
-                    Obj.MoveToAbsPosition(str2double(ax),NewPos);
+                    Obj.MoveToAbsPosition(NewPos);
                     
                     RetMsg.txt = append('Successfully moved Axis by ',num2str(StpSize));
                 catch err

@@ -3,8 +3,9 @@
 clear; clc;
 
 %% set stage and camera
-address = 1111; % stage adress using 
-Stage = ThorlabsStageController(XAxis,1);
+address = 1111; % stage adress using visadevlist
+Stage = ThorlabsStageController(XAxis,1); % set connection
+Stage.InitStage; % homeing stage
 
 
 %%
@@ -106,5 +107,14 @@ function results = get_D4sigma(frame)
             results.D4sigmaX = D4sigmaX;
             results.D4sigmaY = D4sigmaY;
             results.D4sigmaXY = D4sigmaXY;
+
+            theta = 0.5*atan( D4sigmaXY/((0.25*D4sigmaX)^2 -(0.25*D4sigmaY)^2) );
+            t = linspace(0, 2*pi, 40);
+            xelip = D4sigmaX/2*cos(t);
+            yelip = D4sigmaY/2*sin(t);
+            R  = [cos(theta) -sin(theta); sin(theta)  cos(theta)];
+            CorR = R*[xelip ; yelip];
+            results.xel = xCent+CorR(1,:);
+            results.yel = yCent+CorR(2,:);
 
 end
