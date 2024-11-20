@@ -52,8 +52,7 @@ classdef camera
 
             if obj.InitStatus
                 delete(obj.device);
-                delete(obj.param);
-                delete(obj.src);
+                clear obj.device;
                 
                 msg.txt = 'Device Disconnected';
                 msg.color = [0 1 0]; % green
@@ -80,7 +79,7 @@ classdef camera
 
 
 
-        function results = get_D4sigma(frame)
+        function results = get_D4sigma(~,frame)
             
             % thr = max(max(frame(1:5, 1:5)))*5;
             thr = 100; % TODO: find right threshold

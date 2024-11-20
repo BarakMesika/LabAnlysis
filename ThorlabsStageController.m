@@ -105,13 +105,13 @@ classdef ThorlabsStageController < handle
             ErrMsg.color = 'green';
             if ~Obj.IsEmulated
                 try
-                    Position(1) = Obj.StageX.GetPositionAbsolute();  % Query controller for position of the X axis
+                    Position = Obj.StageX.GetPositionAbsolute();  % Query controller for position of the X axis
                 catch err
                     ErrMsg.txt = append('Position query unsuccessful: ', err.message);
                     ErrMsg.color = 'red';
                 end
             else %is emulated - return Pi as default value
-                Position(1)=(rand)*50; %return position in [-25,25]
+                Position=(rand)*50; %return position in [-25,25]
             end
         end
         
