@@ -27,6 +27,7 @@ classdef camera
                     tmpRes = get(obj.device, 'VideoResolution');
                     obj.param.Width = tmpRes(2);
                     obj.param.Height = tmpRes(1);
+                    obj.param.pxl_length = 3.45; % um
 
                     obj.InitStatus = true;
 
