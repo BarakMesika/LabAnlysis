@@ -58,6 +58,7 @@ classdef camera < handle
         function msg = closeConnection(obj)
 
             if obj.InitStatus
+                stop(obj.device);
                 delete(obj.device);
                 clear obj.device;
                 
@@ -77,7 +78,8 @@ classdef camera < handle
         function frame = getFrame(obj)
 
             if obj.InitStatus
-                frame = double( getsnapshot(obj.device) );
+                % frame = double( getsnapshot(obj.device) );
+                frame = getsnapshot(obj.device);
             else
                 frame = [];
             end
